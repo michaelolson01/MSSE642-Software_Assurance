@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>project-1-labsetup.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<h1 id="pen-lab-setup">Pen Lab Setup</h1>
+<h2 id="technology-stack">Technology Stack</h2>
+<p>Host OS: Gentoo Linux Hypervisor: QEMU (using the virt-manager GUI,
+and some custom virsh commands)</p>
+<h3 id="kali-linux">Kali Linux</h3>
+<p>Downloaded the qemu disk image, installed into qemu</p>
+<h3 id="android">Android</h3>
+<p>Downloaded the Android installation disk image, installed into qemu
+using the Android installer.</p>
+<h3 id="metasploitable">Metasploitable</h3>
+<p>Downloaded the zip file. Converted the Virtual-Box disk image into a
+qemu disk image, loaded into qemu.</p>
+<h2 id="architectural-diagram">Architectural Diagram</h2>
+<figure>
+<img src="../images/VM-Architecture-Diagram.dia"
+alt="Architectural Diagram" />
+<figcaption aria-hidden="true">Architectural Diagram</figcaption>
+</figure>
+<h2 id="screenshot-of-manager">Screenshot of manager</h2>
+<figure>
+<img src="../images/virt-manager.png" alt="virt-manager" />
+<figcaption aria-hidden="true">virt-manager</figcaption>
+</figure>
+<h2 id="screenshot-of-kali-linux">Screenshot of Kali Linux</h2>
+<figure>
+<img src="../images/Kali-Linux-1.png" alt="Kali Linux" />
+<figcaption aria-hidden="true">Kali Linux</figcaption>
+</figure>
+<h2 id="screenshot-of-android-running">Screenshot of Android
+Running</h2>
+<figure>
+<img src="../images/Android-1.png" alt="Android" />
+<figcaption aria-hidden="true">Android</figcaption>
+</figure>
+<h2 id="screenshot-of-metasploitable2-running">Screenshot of
+Metasploitable2 Running</h2>
+<figure>
+<img src="../images/Metasploitable2.png" alt="Metasploitable2" />
+<figcaption aria-hidden="true">Metasploitable2</figcaption>
+</figure>
+<h2 id="kali-pinging-metasploitable-2-images">Kali Pinging
+Metasploitable 2 images</h2>
+<figure>
+<img src="../images/Metasploitable2-if-config.png"
+alt="Metasploitable2 IF Config" />
+<figcaption aria-hidden="true">Metasploitable2 IF Config</figcaption>
+</figure>
+<figure>
+<img src="../images/Kali-pinging-Metasploitable2.png"
+alt="Kali Pinging Metasploitable2" />
+<figcaption aria-hidden="true">Kali Pinging Metasploitable2</figcaption>
+</figure>
+<h2 id="difficulties-encountered">Difficulties Encountered</h2>
+<ul>
+<li><p>Rapid 7 did not have a qemu image, so had to convert the virtual
+box image to qemu. Was no aware the operating system used was a 32 bit
+system, and had to adjust the settings on my virtual machine for
+this.</p></li>
+<li><p>The Kali Linux image is very out of date. After setting up virsh
+to use the disk image, I had to update Kali:</p></li>
+</ul>
+<pre class="shell"><code>sudo apt update
+sudo apt upgrade</code></pre>
+<p>There were more than 200 packages out of date (including the Kernel
+whick still had the recently found vulnerabilities
+<code>Copy Fail</code>, <code>Dirty Frag</code>, and
+<code>Fragnesia</code>)</p>
+<p>Nessus would not install until Kali was updated.</p>
+<ul>
+<li>Android installation was painless, just had to tell it to create a
+partition, and install.</li>
+</ul>
+<h2 id="some-caveats">Some Caveats</h2>
+<p>I have been using this virtual machine manager for years now, so I
+already had networking, clipboard sharing etc setup for the system.</p>
+<p>I had to make sure that Metasploitable2 is not accessable to the
+outside world.</p>
+
+</body>
+</html>
