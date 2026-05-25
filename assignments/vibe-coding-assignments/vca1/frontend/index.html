@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Security - Educational Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">🔐 Supply Chain Security</h1>
+            <ul class="nav-links">
+                <li><a href="#dashboard" onclick="showSection('dashboard')">Dashboard</a></li>
+                <li><a href="#analyzer" onclick="showSection('analyzer')">Analyzer</a></li>
+                <li><a href="#simulator" onclick="showSection('simulator')">Simulator</a></li>
+                <li><a href="#case-studies" onclick="showSection('case-studies')">Case Studies</a></li>
+                <li><a href="#best-practices" onclick="showSection('best-practices')">Best Practices</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <h2>Supply Chain Security Dashboard</h2>
+            <p class="intro-text">Learn about software supply chain vulnerabilities and how to protect your projects.</p>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>📊 What is Supply Chain Security?</h3>
+                    <p>Supply chain security refers to protecting the integrity of software dependencies and the processes used to develop, build, and distribute software.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>⚠️ Common Attack Vectors</h3>
+                    <ul>
+                        <li>Typosquatting (similar package names)</li>
+                        <li>Dependency confusion attacks</li>
+                        <li>Compromised maintainer accounts</li>
+                        <li>Malicious transitive dependencies</li>
+                        <li>Build system compromise</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>🎯 Real-World Impact</h3>
+                    <p>Supply chain attacks have affected:</p>
+                    <ul>
+                        <li>18,000+ organizations (SolarWinds)</li>
+                        <li>Millions of systems (Log4j)</li>
+                        <li>Critical infrastructure</li>
+                        <li>Government agencies</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>🛡️ Key Defense Strategies</h3>
+                    <ul>
+                        <li>Dependency scanning and monitoring</li>
+                        <li>Package verification and signing</li>
+                        <li>SBOM (Software Bill of Materials)</li>
+                        <li>Code review and testing</li>
+                        <li>Vendor assessment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h3>Vulnerability Statistics</h3>
+                <div id="vuln-stats" class="stats-grid"></div>
+            </div>
+        </section>
+
+        <!-- Analyzer Section -->
+        <section id="analyzer" class="section">
+            <h2>Dependency Vulnerability Analyzer</h2>
+            <p>Analyze your project's dependencies for known vulnerabilities.</p>
+            
+            <div class="analyzer-container">
+                <div class="input-section">
+                    <h3>Enter Your Dependencies</h3>
+                    <p class="hint">Format: package_name:version (one per line)</p>
+                    <textarea id="dependencies-input" placeholder="Example:&#10;log4j:2.14.1&#10;xz:5.6.0&#10;lodash:4.17.21"></textarea>
+                    <button onclick="analyzeDependencies()" class="btn btn-primary">Analyze</button>
+                </div>
+
+                <div id="analysis-results" class="results-section" style="display:none;">
+                    <h3>Analysis Results</h3>
+                    <div class="risk-meter">
+                        <div class="risk-label">Risk Score</div>
+                        <div id="risk-score" class="risk-value">0</div>
+                        <div id="risk-bar" class="risk-bar">
+                            <div id="risk-fill" class="risk-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="vulnerabilities-list">
+                        <h4>Vulnerable Packages Found</h4>
+                        <div id="vulnerable-packages"></div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h4>Recommendations</h4>
+                        <ul id="recommendations-list"></ul>
+                    </div>
+
+                    <button onclick="generateSBOM()" class="btn btn-secondary">Generate SBOM</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulator Section -->
+        <section id="simulator" class="section">
+            <h2>Supply Chain Attack Simulator</h2>
+            <p>Learn about different types of supply chain attacks and how to prevent them.</p>
+            
+            <div class="simulator-container">
+                <div class="scenario-selector">
+                    <h3>Select an Attack Scenario</h3>
+                    <div class="scenario-buttons">
+                        <button onclick="loadScenario('typosquatting')" class="btn scenario-btn">Typosquatting</button>
+                        <button onclick="loadScenario('dependency_confusion')" class="btn scenario-btn">Dependency Confusion</button>
+                        <button onclick="loadScenario('compromised_maintainer')" class="btn scenario-btn">Compromised Maintainer</button>
+                        <button onclick="loadScenario('transitive_dependency')" class="btn scenario-btn">Transitive Dependency</button>
+                    </div>
+                </div>
+
+                <div id="scenario-details" class="scenario-details" style="display:none;">
+                    <h3 id="scenario-name"></h3>
+                    <p id="scenario-description"></p>
+                    
+                    <div class="scenario-info">
+                        <div class="info-box">
+                            <h4>Example</h4>
+                            <p id="scenario-example"></p>
+                        </div>
+                        <div class="info-box">
+                            <h4>Risk</h4>
+                            <p id="scenario-risk"></p>
+                        </div>
+                    </div>
+
+                    <div class="prevention-box">
+                        <h4>Prevention Strategies</h4>
+                        <ul id="scenario-prevention"></ul>
+                    </div>
+
+                    <div class="interactive-demo">
+                        <h4>Interactive Demo</h4>
+                        <div id="demo-content"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Studies Section -->
+        <section id="case-studies" class="section">
+            <h2>Real-World Case Studies</h2>
+            <p>Learn from actual supply chain attacks that have impacted organizations worldwide.</p>
+            
+            <div id="case-studies-container" class="case-studies-grid"></div>
+        </section>
+
+        <!-- Best Practices Section -->
+        <section id="best-practices" class="section">
+            <h2>Supply Chain Security Best Practices</h2>
+            <p>Implement these practices to protect your software supply chain.</p>
+            
+            <div id="practices-container" class="practices-grid"></div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Supply Chain Security Educational Tool | Software Assurance Course</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
