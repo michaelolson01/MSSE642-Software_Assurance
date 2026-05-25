@@ -240,6 +240,21 @@ def get_case_studies():
                 "Monitor package behavior and resource usage",
                 "Implement rate limiting on package updates"
             ]
+        },
+        {
+            "name": "event-stream Compromise (2018)",
+            "date": "November 2018",
+            "severity": "HIGH",
+            "description": "Popular npm package compromised through dependency injection to steal Bitcoin",
+            "attack_vector": "Malicious dependency added to package, compromised maintainer account",
+            "impact": "Cryptocurrency stealing from Bitcoin wallet users, affected millions of downloads",
+            "lessons": [
+                "Audit all new dependencies carefully",
+                "Monitor for suspicious new dependencies in updates",
+                "Implement dependency pinning to control updates",
+                "Review package.json changes in code review",
+                "Use tools to detect unusual package behavior"
+            ]
         }
     ]
     return jsonify(studies)

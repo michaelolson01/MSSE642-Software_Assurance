@@ -269,7 +269,7 @@ This application is designed for:
 
 ## References
 
-- [OWASP Supply Chain Security](https://owasp.org/www-community/attacks/Supply_chain_attack)
+- [OWASP Supply Chain Security](https://owasp.org/www-project-mcp-top-10/2025/MCP04-2025%E2%80%93Software-Supply-Chain-Attacks&Dependency-Tampering)
 - [NIST Software Supply Chain Security](https://csrc.nist.gov/projects/supply-chain-risk-management)
 - [CWE-1104: Use of Unmaintained Third Party Components](https://cwe.mitre.org/data/definitions/1104.html)
 - [Log4j Vulnerability (CVE-2021-44228)](https://nvd.nist.gov/vuln/detail/CVE-2021-44228)
