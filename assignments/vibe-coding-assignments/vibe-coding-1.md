@@ -15,10 +15,13 @@ There are 5 web pages in it:
 This gives a description of what this type of vulnerability is, common vectors of attack, the real world impact of vulnerabilities, and some key defence strategies.
 It also has some statistics at the bottom of the current vulnerability counts that are affecting organizations.
 
+![Dashboard screenshot](../images/vibe-coding-1-1.png)
 
 2. Analyzer - 
 
 A simple analyzer for different imports. I couldn't get this to work. The instruction say to paste dependencies in the text box, and then it is suppose to analyze them for known vulnerabilities.
+
+![Analyzer screenshot](../images/vibe-coding-1-2.png)
 
 3. Simulator - 
 
@@ -32,13 +35,19 @@ Gives simulations of multiple attack types:
 
   4. Transitive Dependency
 
+![Simulator screenshot](../images/vibe-coding-1-3.png)
+
 4. Case Studies
 
 Shows some current real-world case studies, and what can be learned from them.
 
+![Case Studies screenshot](../images/vibe-coding-1-4.png)
+
 5. Best Practices - 
 
 Some things to implement to protect a software supply chain.
+
+![Best Practices screenshot](../images/vibe-coding-1-5.png)
 
 ## Vulnerability Description
 
