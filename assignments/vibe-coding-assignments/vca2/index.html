@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Roguelike</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #0a0e27;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+        }
+
+        .game-area {
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1a1f3a;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .game-grid {
+            background-color: #1a1f3a;
+            border: 2px solid #00ff00;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 20px;
+            line-height: 1.4;
+            letter-spacing: 2px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .game-grid div {
+            height: 24px;
+        }
+
+        .info-panel {
+            background-color: #1a1f3a;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .info-panel h3 {
+            margin-bottom: 10px;
+            color: #00ff00;
+            font-size: 14px;
+        }
+
+        .info-panel p {
+            font-size: 12px;
+            margin: 5px 0;
+            color: #00dd00;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 15px;
+            color: #00ff00;
+            font-size: 14px;
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 10px;
+        }
+
+        .stat {
+            margin: 10px 0;
+            font-size: 12px;
+        }
+
+        .stat-label {
+            color: #00ff00;
+        }
+
+        .stat-value {
+            color: #ffff00;
+        }
+
+        .vulnerabilities {
+            margin-top: 20px;
+        }
+
+        .vuln-item {
+            background-color: #0a0e27;
+            border: 1px solid #00ff00;
+            padding: 8px;
+            margin: 8px 0;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .vuln-item:hover {
+            background-color: #00ff00;
+            color: #0a0e27;
+        }
+
+        .vuln-item.selected {
+            background-color: #00ff00;
+            color: #0a0e27;
+        }
+
+        .vuln-name {
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .vuln-item.selected .vuln-name {
+            color: #0a0e27;
+        }
+
+        .vuln-desc {
+            font-size: 10px;
+            margin-top: 3px;
+            opacity: 0.8;
+        }
+
+        .combat-panel {
+            background-color: #1a1f3a;
+            border: 2px solid #ff0000;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .combat-panel.active {
+            display: block;
+        }
+
+        .combat-panel h3 {
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .enemy-info {
+            margin: 10px 0;
+            font-size: 12px;
+        }
+
+        .combat-buttons {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 10px;
+            background-color: #00ff00;
+            color: #0a0e27;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background-color: #00dd00;
+        }
+
+        button:disabled {
+            background-color: #666;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .message-log {
+            background-color: #0a0e27;
+            border: 1px solid #00ff00;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 11px;
+            max-height: 150px;
+            overflow-y: auto;
+            border-radius: 3px;
+        }
+
+        .message {
+            margin: 3px 0;
+            padding: 2px 0;
+        }
+
+        .message.success {
+            color: #00ff00;
+        }
+
+        .message.failure {
+            color: #ff0000;
+        }
+
+        .message.info {
+            color: #ffff00;
+        }
+
+        .controls {
+            background-color: #1a1f3a;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .controls h3 {
+            margin-bottom: 10px;
+            color: #00ff00;
+        }
+
+        .control-item {
+            margin: 5px 0;
+        }
+
+        .game-over {
+            background-color: #1a1f3a;
+            border: 2px solid #ff0000;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+
+        .game-over.active {
+            display: block;
+        }
+
+        .game-over h2 {
+            color: #ff0000;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .game-over p {
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .game-over button {
+            margin-top: 15px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="game-area">
+            <div class="game-grid" id="gameGrid"></div>
+            <div class="info-panel">
+                <h3>DUNGEON LEVEL</h3>
+                <p id="levelInfo">Level 1</p>
+            </div>
+            <div class="combat-panel" id="combatPanel">
+                <h3>⚔️ COMBAT ENGAGED</h3>
+                <div class="enemy-info">
+                    <p><span class="stat-label">Enemy:</span> <span id="enemyName">Unknown</span></p>
+                    <p><span class="stat-label">Health:</span> <span id="enemyHealth">0</span></p>
+                </div>
+                <p style="margin-top: 10px; font-size: 11px;">Select a vulnerability to exploit:</p>
+                <div id="combatVulnerabilities" style="margin-top: 10px;"></div>
+                <p style="margin-top: 15px; font-size: 11px;" id="variantLabel" style="display: none;">Choose your attack variant:</p>
+                <div id="combatVariants" style="margin-top: 10px;"></div>
+                <div class="combat-buttons">
+                    <button id="scanBtn" onclick="game.scan()">SCAN</button>
+                    <button id="attackBtn" onclick="game.attack()">ATTACK</button>
+                    <button id="fleeBtn" onclick="game.flee()">FLEE</button>
+                </div>
+            </div>
+            <div class="message-log" id="messageLog"></div>
+            <div class="game-over" id="gameOver">
+                <h2 id="gameOverTitle">GAME OVER</h2>
+                <p id="gameOverMessage"></p>
+                <button onclick="location.reload()">RESTART</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h2>PLAYER STATS</h2>
+            <div class="stat">
+                <span class="stat-label">Health:</span>
+                <span class="stat-value" id="playerHealth">100</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Exploits:</span>
+                <span class="stat-value" id="exploitCount">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Machines Defeated:</span>
+                <span class="stat-value" id="machinesDefeated">0</span>
+            </div>
+
+            <div class="vulnerabilities">
+                <h2>VULNERABILITIES</h2>
+                <div id="vulnerabilityList"></div>
+            </div>
+
+            <div class="controls">
+                <h3>CONTROLS</h3>
+                <div class="control-item">↑↓←→ or WASD: Move</div>
+                <div class="control-item">Click vuln: Select</div>
+                <div class="control-item">SPACE: Interact</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
