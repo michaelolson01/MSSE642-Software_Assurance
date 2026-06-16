@@ -87,19 +87,19 @@ This tool is amazingly slow the first time it is installed. Almost best to insta
 
 Waiting for OpenVAS 
 
-![Waiting for OpenVas](../images/Waiting for OpenVAS.png)
+![Waiting for OpenVas](../images/Waiting_for_OpenVAS.png)
 
 It was working for around 45 minutes.
 
-![OpenVAS is working!](../images/OpenVAS is working!!!.png)
+![OpenVAS is working!](../images/OpenVAS_is_working.png)
 
 It Finished!
 
-![OpenVAS finished](../images/OpenVAS has Finished.png)
+![OpenVAS finished](../images/OpenVAS_has_finished.png)
 
 Some Results
 
-![OpenVAS Has finished 2](../images/OpenVAS has Finished-1.png)
+![OpenVAS Has finished 2](../images/OpenVAS_has_finished-1.png)
 
 ## Conclusion
 
