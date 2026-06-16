@@ -103,7 +103,7 @@ Some Results
 
 ## Conclusion
 
-The tool I used was very powerful, and I am assuming the proprietary tool is also powerful (and hopefully a lot faster). Whenever it finishes, I'll update this readme to show how well it worked.
+The tool I used was very powerful, and I am assuming the proprietary tool is also powerful (and hopefully a lot faster).
 
 ## References
 
