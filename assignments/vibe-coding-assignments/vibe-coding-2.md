@@ -55,6 +55,8 @@ This is more focused on the aspect of 'Port Scanning' and why it is useful in fi
 
 When a port scan is done, it lists off the open ports, it also lists off the related programs, and indicates what exploit will likely work on it.
 
+![Vibe coding game](../images/vibe-coding-2.png)
+
 ## Problems encountered
 
 I had no problems having Claude make this application. I explained my expectation, Claude created a prototype. I explained changes I wanted done to the prototype, and it did them.
