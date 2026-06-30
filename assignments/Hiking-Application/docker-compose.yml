@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: trip_app_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: trip_app
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - trip_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Backend API Server
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trip_app_backend
+    environment:
+      DB_HOST: db
+      DB_USER: app_user
+      DB_PASSWORD: password
+      DB_NAME: trip_app
+      NODE_ENV: development
+      PORT: 3000
+      JWT_SECRET: your-secret-key-change-in-production
+      WEB_SERVER_IP: http://0.0.0.0:3001
+    ports:
+      - "0.0.0.0:3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - trip_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Frontend Web Server
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: trip_app_frontend
+    ports:
+      - "0.0.0.0:3001:3001"
+    depends_on:
+      - backend
+    networks:
+      - trip_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  trip_network:
+    driver: bridge
