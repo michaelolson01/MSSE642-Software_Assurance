@@ -1,0 +1,9 @@
+{
+  "name": "trip-app-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for trip management application",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 3001"
+  }
+}
